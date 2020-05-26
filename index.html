@@ -37,7 +37,7 @@
 //   and is written in the xen language, with the exception of the
 //   embedded JavaScript used for certain macros
 
-// Note: the definitions area is currently in beta
+// Note: the definitions area is currently in development
 //    and is not run as code in this implementation
 
 
@@ -96,6 +96,7 @@ operator (n -> m) 9 {
     return result; 
 }
 
+
 __functionsAsData = true
 
 // defining a "pipe" operator that allows 
@@ -106,13 +107,14 @@ operator (a >> b) {
 
 
 // pipe operator in use.
-// notice also the partially evaluated expressions (using ellipses).
+// this also uses xen's partially evaluated expressions (expressions with ellipses).
 //    this syntax defines an anonymous function that is immediately called
-//    with its input.
+//    with the piped-in input.
 b = 5:4
-    >> (... * 2)
-    >> cents 
-    >> (400c - ...);
+    >> (... * 2)     // multiply input by 2
+    >> cents         // call cents() function on input
+    >> (400c - ...); // subtract input from 400 cents
+                    
                     </div>
                 </div>
                 <div class="cheat-sheet secondary">
