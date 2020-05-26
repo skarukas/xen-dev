@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Xen Console</title>
+        <link rel="stylesheet" href="style.css"/>
+        <link rel="shortcut icon" href="favicon.png" />
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta property="og:description" content="xen is a high-level, interpreted language for analyzing and operating upon musical pitch structures within the context of xenharmonic microtonal theory." />
+        <meta property="og:image"       content="https://skarukas.github.io/xen/xen-story.png"/>
+    </head>
+    <body class="primary">
+        <div id="flex-container" class="main-text">
+            <header>
+                <div>
+                    <strong>xen</strong> <!-- [definitions] -->
+                </div>
+                <div>
+                    <a href="https://github.com/skarukas/xen/wiki" target="_blank" class="link">[documentation]</a>
+                    |
+                    <a href="https://github.com/skarukas/xen" target="_blank" class="link">[code]</a>
+                </div>
+                <div>
+                    <button class="cheat-toggle">toggle cheat sheet</button>
+                    <button class="def-toggle">hide definitions</button>
+                    <button class="dark-switch">dark mode is off</button>
+                </div>
+            </header>
+            <div id="code-container">
+                <div id="codeArea">
+<!--                     <div id="result"></div>
+                    <div>&gt; <input type="text" id="codeInput" size="20" spellcheck="false" class="primary"/></div> -->
+                    <!--<label for="definitions"></label>
+                    <textarea name="definitions" id="definitions" spellcheck="false"></textarea>-->
+                    <div id="editor">
+// This section is for definitions (operators, macros, functions)
+//   and is written in the xen language, with the exception of the
+//   embedded JavaScript used for certain macros
+
+// Note: the definitions area is currently in beta
+//    and is not run as code in this implementation
+
+
+// a bunch of ways to define a function
+avg(x, y) = js {
+    let sum = add(x, y);
+    return divide(sum, 2);
+}
+
+// inline function
+avg(x, y) = (x + y) / 2
+
+// function with implicit return ()
+function avg(x, y) {
+    sum = x + y;
+    sum / 2
+}
+
+avg = function (x, y) {
+    sum = x + y;
+    sum / 2
+}
+
+// This function is defined within a block of JS code.
+// Because 'avg' is not declared with let or const,
+//    it becomes available in the global xen scope. 
+//    N.B. though this seems contrary to JS 
+//    best practices, this does not have negative side effects
+//    in the context of xen code, as each JS block is executed
+//    within its own scope.
+js {
+    avg = function(x, y) {
+        let sum = x + y;
+        return sum / 2;
+    }
+}
+
+// Operators are defined by first presenting a template of the operation 
+//    (and optionally a number representing its binding power)
+//    and then a block of JavaScript code that defines the behavior
+//    of the operator.
+
+// defining a shorthand to play back the previous musical expression
+//  (e.g. 5:4~)
+operator (expr~) 1 {
+    play(expr);
+    return expr;
+}
+
+// defining an operator that returns a list of numbers in a certain range
+// (e.g. 1->9 evaluates to 1, 2, 3, 4, 5, 6, 7, 8, 9)
+operator (n -> m) 9 { 
+    let result = []; 
+    if (n < m) while (n <= m) result.push(n++); 
+    else while (n >= m) result.push(n--); 
+    return result; 
+}
+
+__functionsAsData = true
+
+// defining a "pipe" operator that allows 
+//     functions to be easily chained
+operator (a >> b) { 
+    return b(a);
+}
+
+
+// pipe operator in use.
+// notice also the partially evaluated expressions (using ellipses).
+//    this syntax defines an anonymous function that is immediately called
+//    with its input.
+b = 5:4
+    >> (... * 2)
+    >> cents 
+    >> (400c - ...);
+                    </div>
+                </div>
+                <div class="cheat-sheet secondary">
+                    <div style="text-align: center;">
+                        <strong>xen cheat sheet</strong> 
+                        (... = any # of arguments) 
+                    </div>
+                    <div class="footer-container">
+                        <table class="example">
+                            <thead style="font-style:italic">
+                                <td></td>
+                                <td class="inputExpression" colspan="2">constructors</td>
+                                <td class="inputExpression">example</td>
+                            </thead>
+                            <tr>
+                                <td class="inputExpression">ratio</td>
+                                <td class="comment">a:b</td>
+                                <td class="comment">ratio(a, b)</td>
+                                <td class="comment">3:2</td>
+                            </tr>
+                            <tr>
+                                <td class="inputExpression">compound ratio</td>
+                                <td class="comment" colspan="2">a:b:c:d ...</td>
+                                <td class="comment">4:5:6:7</td>
+                            </tr>
+                            <tr>
+                                <td class="inputExpression">et</td>
+                                <td class="comment">a#b or #a</td>
+                                <td class="comment">et(a, b)</td>
+                                <td class="comment">60#12 or #60</td>
+                            </tr>
+                            <tr>
+                                <td class="inputExpression">cents</td>
+                                <td class="comment">x c</td>
+                                <td class="comment">cents(x)</td>
+                                <td class="comment">50c</td>
+                            </tr>
+                            <tr>
+                                <td class="inputExpression">freq</td>
+                                <td class="comment">x hz</td>
+                                <td class="comment">freq(x)</td>
+                                <td class="comment">500hz</td>
+                            </tr>
+                            <tr>
+                                <td class="inputExpression">list</td>
+                                <td class="comment">'(...)</td>
+                                <td class="comment">list(...)</td>
+                                <td class="comment">'(3:2, 70Hz, 7#12)</td>
+                            </tr>
+                        </table>
+                        <table class="example">
+                            <thead style="font-style:italic">
+                                <td></td>
+                                <td class="inputExpression">function</td>
+                                <td class="inputExpression">example</td>
+                            </thead>
+                            <tr>
+                                <td class="inputExpression">playback</td>
+                                <td class="comment">play(...)</td>
+                                <td class="comment">play(5:4, sine)</td>
+                            </tr>
+                            <tr>
+                                <td class="inputExpression">adaptive</td>
+                                <td class="comment">just(...)</td>
+                                <td class="comment">just(#60, #64, #67)</td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;tuning</td>
+                                <td class="comment">simplify(...)</td>
+                                <td class="comment">simplify(#4)</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td class="comment">closest(...)</td>
+                                <td class="comment">closest(#4)</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td class="comment" colspan="2">approxpartials(...)</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="primary interactions">
+                <!-- <strong>xen console</strong> [interactions] -->
+                <div id="result"></div>
+                <div>&gt; <input type="text" id="codeInput" size="20" spellcheck="false" class="primary"/></div>
+            </div>
+            <footer class="secondary" style="text-align: center;">
+                &copy; 2020 stephen karukas
+            </footer>
+        </div>
+
+        <script src="ace/ace.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" type="module"></script>
+        <script src="tune.js"></script>
+        <!-- <script src="xen.js" type="module"></script> -->
+        <script src="xen-pkg.js"></script>
+        <script src="xen-webaudio-playback.js" type="module"></script>
+        <script src="xen-console.js" type="module"></script>
+        <!-- <script src="xen.test.js" type="module"></script> <!--only uncomment for testing -->
+    </body>
+</html>

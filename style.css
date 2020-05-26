@@ -1,0 +1,218 @@
+body {
+    margin: 0px;
+    width: 100vw;
+    height: 100vh;
+    -webkit-transition: color 1s linear, background-color 1s linear;
+    -moz-transition: color 1s linear, background-color 1s linear;
+    transition: color 1s linear, background-color 1s linear;
+}
+* {
+    font-family: monospace;
+}
+ 
+#flex-container {
+    font-size: 1.1em;
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+    width: 100%;
+}
+
+#code-container {
+    display: flex;
+    border-bottom: 2px solid grey;
+    border-top: 2px solid grey;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1em;
+    padding: 10px 0px 5px 15px;
+    /* border-bottom: 2px solid grey; */
+}
+
+a.link, a.link:visited, a.link:focus, a.link:active {
+    -webkit-transition: color 0.2s;
+    -moz-transition: color 0.2s;
+    transition: color 0.2s;
+    color: green; 
+    text-decoration: none;
+}
+
+a.link:hover {
+    color: rgb(82, 204, 82);
+}
+
+
+
+#codeArea {
+    overflow-y:scroll;
+    overflow-wrap: break-word;
+    height: 65vh;
+    font-size: 1em;
+    padding: 0px;
+}
+#codeInput {
+    width: 95%;
+    height: 100%;
+    outline: none;
+    border: none;
+    border-color: transparent;
+    background: none;
+    font-family: monospace;
+    font-size: 1em;
+}
+
+/* #definitions {
+    outline: none;
+    resize: none;
+    width: 100%;
+    height: 100%;
+    font-size: 1em;
+    -moz-tab-size : 4;
+    -o-tab-size : 4;
+    tab-size : 4;
+}
+ */
+#editor {
+    flex: 1;
+    height: 100%;
+    width: 100vw;
+    font-size: 14px;
+}
+
+#editor div {
+    -webkit-transition: color .2s linear, background-color 0.2s linear;
+    -moz-transition: color .2s linear, background-color 0.2s linear;
+    transition: color .2s linear, background-color .2s linear;
+}
+
+#codeInput:focus {
+    outline-width: 0;
+}
+
+/* Code input colors */
+.output, .comment {
+    color: gray;
+}
+.help {
+    color: green;
+}
+.error {
+    color: rgb(185, 72, 72);
+}
+
+.cheat-sheet {
+    white-space: nowrap;
+    max-width: 40vw;
+    overflow-x: scroll;
+    -webkit-transition: color 1s linear, background-color 1s linear;
+    -moz-transition: color 1s linear, background-color 1s linear;
+    transition: color 1s linear, background-color 1s linear;
+    
+    padding-top: 5px;
+    padding-left: 5px;
+    border-left: 2px solid grey !important; 
+    flex: 1 1;
+    display: none;
+}
+
+.example {
+    font-size: 1em;
+    padding: 10px;
+
+    -webkit-order: 0;
+    -ms-flex-order: 0;
+    order: 0;
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    -webkit-align-self: flex-start;
+    -ms-flex-item-align: start;
+    align-self: flex-start;
+}
+
+.no-border {
+    border: none;
+}
+
+.interactions {
+    -webkit-transition: background-color 1s;
+    -moz-transition: background-color 1s;
+    transition: background-color 1s;
+
+    width: 99%; /* scrollbar was getting buggy */
+    overflow-y: scroll;
+    word-wrap: break-word;
+    padding: 5px;
+
+    font-size: 1em;
+    flex: 2 1 auto;
+}
+
+.footer-container {
+    height: 100%;
+
+    display: -ms-flex;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-align-content: flex-start;
+    -ms-flex-line-pack: start;
+    align-content: flex-start;
+    -webkit-align-items: flex-start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+}
+
+code {
+    background-color:  none;
+    color: crimson;
+}
+
+
+.secondary {
+    border-color: black;
+    background-color: rgb(230, 230, 230);
+}
+
+.dark-secondary {
+    border-color: red;
+    background-color: rgb(50, 50, 50); 
+}
+
+.primary {
+    background-color: white;
+    color: black;
+}
+
+.dark-primary {
+    background-color: black; 
+    color: lightgray;
+}
+
+button {
+    margin-right:10px;
+    outline: none;
+    background: none;
+    border: 2px solid gray;
+    color: gray;
+}
+
+button:hover {
+    background:gray;
+    color: white;
+}
+
+footer {
+    padding: 2px;
+}
