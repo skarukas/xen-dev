@@ -57,6 +57,7 @@ $( ".dark-switch" ).on("click", function() {
       $( "#codeInput" ).removeClass( "dark-primary" );
       $( ".interactions" ).removeClass( "dark-primary" );
       $( ".cheat-sheet" ).removeClass( "dark-secondary" );
+      $( "footer" ).removeClass( "dark-secondary" );
       $( ".dark-switch" ).text( "dark mode is off" );
       
       editor.setTheme("ace/theme/chrome");
@@ -65,6 +66,7 @@ $( ".dark-switch" ).on("click", function() {
       $( "#codeInput" ).addClass( "dark-primary" );
       $( ".interactions" ).addClass( "dark-primary" );
       $( ".cheat-sheet" ).addClass( "dark-secondary" );
+      $( "footer" ).addClass( "dark-secondary" );
       $( ".dark-switch" ).text( "dark mode is on" );
 
       editor.setTheme("ace/theme/kr_theme");
