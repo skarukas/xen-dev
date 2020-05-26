@@ -115,6 +115,15 @@ b = 5:4
     >> cents         // call cents() function on input
     >> (400c - ...); // subtract input from 400 cents
                     
+
+// more complex expressions are possible, and can be 
+//    partially evaluated (with arguments filled left to right) 
+//    until complete
+step1 = (... + ...) / (... + ...)
+
+step2 = step1(3, 4)     // 7 / (... + ...)
+step3 = step2(1)        // 7 / (1 + ...)
+finalResult = step3(13) // 2
                     </div>
                 </div>
                 <div class="cheat-sheet secondary">
